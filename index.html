@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Web App</title>
+</head>
+<body>
+    <h1>Task Management</h1>
+    
+    <h2>Add a Task</h2>
+    <form action="/add" method="post">
+        <input type="text" name="task" placeholder="Task description" 
+required>
+        <button type="submit">Add Task</button>
+    </form>
+    
+    <h2>Task List</h2>
+<ul id="taskList">
+    <!-- Task list will be displayed here using JavaScript -->
+</ul>
+   
+   
+   <script>
+       async function updateTaskList() {
+           const response = await fetch('/getTasks');
+           const tasks = await response.json();
+           const taskList = document.getElementById('taskList');
+
+           // Clear the existing task list
+           taskList.innerHTML = '';
+
+           // Add tasks to the list
+           tasks.forEach(task => {
+               const li = document.createElement('li');
+               li.textContent = task;
+               taskList.appendChild(li);
+           });
+       }
+
+       // Call the updateTaskList function to initially populate the task list
+       updateTaskList();
+   </script>
+
+</body>
+</html>
+
